@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+</head>
+<body>
+	<canvas id="canvas" style="margin:10px auto;display:block;border:1px solid black"></canvas>
+	<script type="text/javascript">
+
+		var ball=[];
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+	window.onload=function(){
+
+		canvas.width=800;
+		canvas.height=800;
+
+		for (var i = 0; i < 10; i++) {
+			var aBll={
+				x:Math.random()*canvas.width,
+				y:Math.random()*canvas.height,
+				r:Math.random()*50+20
+			};
+			ball[i]=aBll;
+
+		};
+
+	    drawBall();
+		canvas.addEventListener("mouseup",detect);
+			  
+	}
+	function drawBall(){
+			for(var i=0;i<ball.length;i++){
+			context.beginPath();
+			context.arc(ball[i].x,ball[i].y,ball[i].r,0,Math.PI*2);
+			context.fillStyle="purple";
+			context.fill();
+		}
+		   }
+
+	 function detect (event){
+				// alert('1');
+				var x=event.clientX-canvas.offsetLeft;
+				var y=event.clientX-canvas.offsetTop;
+				// var x=event.clientX-canvas.getBoundingClientRect().left;
+				// var y=event.clientX-canvas.getBoundingClientRect().top;
+				// alert(x);
+				for(var i=0;i<ball.length;i++){
+					context.beginPath();
+					context.arc(ball[i].x,ball[i].y,ball[i].r,0,Math.PI*2);
+					// console.log(ball[i].x+"    "+ball[i].y);
+					// console.log("x:"+x+"  y:"+y);
+					if (context.isPointInPath(x,y)) {
+						alert("1");
+						context.fillStyle="blue";
+						context.fill();
+					};
+				}
+			}
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var re=null,i;
+		re=/cat/g;
+	var	text='cat,bat,aat';
+	var matches=re.exec(text);
+	console.dir(matches[0]);
+	console.dir(matches.index);
+	console.dir(re.lastIndex);
+	matches=re.exec(text);
+	console.dir(re.lastIndex);
+		// alert(re.toString())
+	/*for (var i = 0; i <10; i++) {
+		re=/cat/g;
+		console.dir(re.test('catastrogrophe'));
+	};
+	for (var i = 0; i <10; i++) {
+		re=new RegExp('cat','g')
+		console.dir(re.test('catastrogrophe'));
+	};*/
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

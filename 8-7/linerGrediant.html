@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var canvas=document.getElementById('canvas');
+		canvas.width=800;
+		canvas.height=800;
+		var context=canvas.getContext('2d');
+
+
+		// var grd=context.createLinearGradient(0,0,800,800);
+		// grd.addColorStop(0.0,'white');
+		// grd.addColorStop(0.5,'blue');
+		// grd.addColorStop(1.0,'yellow');
+
+		var grd=context.createRadialGradient(400,400,0,400,400,400);
+
+		grd.addColorStop(0.0,'white');
+		grd.addColorStop(0.5,'blue');
+		grd.addColorStop(1.0,'yellow');
+		context.fillStyle=grd;
+		
+		context.fillRect(0,0,800,800);
+
+	}
+	</script>
+</head>
+<body>
+	<canvas id='canvas' style='display:block;margin:50px auto;'></canvas>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<meta charset='utf-8'>
+<script type="text/javascript" async='acync'></script>
+<style type="text/css">
+
+	progress{
+		width: 50px;
+		height: 50px;
+}
+</style>
+<script type="text/javascript">
+	setInterval(function(){
+		if (document.getElementById('pro1').value<100) {
+			document.getElementById('pro1').value++;
+		}
+		else{
+			document.getElementById('pro1').value=0;
+		};
+	},100)
+</script>
+重庆邮电<mark>大学</mark><br>
+重庆邮电<mark>大学</mark><br>
+重庆邮电<mark>大学</mark><br>
+重庆邮电<mark>大学</mark><br>
+
+<progress  id ='pro' value='50' min='0' max='1000'></progress>
+<meter id ='pro1' low='20' high='80' optimum='100' value='0' min='0' max='100'></meter>

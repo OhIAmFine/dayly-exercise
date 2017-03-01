@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<body>
+	<!-- 第一个app -->
+	<!-- <div ng-app="" ng-init="firstname='sam'">
+		<p>姓名:<input type="text" ng-model="name"></p>
+		<h1>hello:{{name}} </h1> -->
+		<!-- <h2>姓名:{{firstname}}<! <span ng-bind="firstname"></span></h2> -->
+		<!-- <p>我的第一个表达式{{3+2-5*0}}</p> -->
+	<!-- 第二个app -->
+	<!-- </div>  -->
+	<!-- <div ng-app="">
+		<p>我的第一个表达式{{3+2-5*0}}</p>
+	</div> -->
+	<div ng-app="myFirstApp" ng-controller="myController" >
+		姓：<input type="text" ng-model="firstname"/>
+		<br>
+		名：<input type="text" ng-model="lastname">
+		<br>
+		<!-- <p>姓名：{{firstname+" "+lastname}}</p> -->
+		<!-- 另一种bind方法 -->
+		<p>姓名：<span ng-bind="firstname+' '+lastname"></span></p>
+		<p>名字 : <input type="text" ng-model="name"></p>
+		  <h1 style="width:300px;">Hello {{name}}</h1>
+
+	</div>
+	<script type="text/javascript">
+	var myFirstAppController=angular.module("myFirstApp",[]);
+	myFirstAppController.controller("myController",function($scope){
+		$scope.firstname="john";
+		$scope.lastname="sam";
+	})
+	</script>
+</body>
+</html>

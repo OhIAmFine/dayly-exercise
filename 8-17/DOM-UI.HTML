@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../EventUtil.js"></script>
+	<script type="text/javascript">
+	// window.onload=function(){
+		// var isSupported=document.implementation.hasFeature("HTMLEvent","2.0");
+		// var isSupported=document.implementation.hasFeature("HHHH","3.0");//Starting with Gecko 19.0 (Firefox 19.0 / Thunderbird 19.0 / SeaMonkey 2.16) the hasFeature method will always return true.
+
+		//alert(isSupported)
+	// }
+
+		EventUtil.addHandler(window,"load",function(){
+			// alert("loaded")
+			var image=document.createElement("img");
+			var oDiv=document.getElementById('div');
+			EventUtil.addHandler(image,"load",function(event){
+				var event=EventUtil.getEvent(event);
+				var srcImage=EventUtil.getTarget(event).src;
+				alert(srcImage);
+			})
+			image.src="../images/1.jpg";
+			oDiv.appendChild(image);
+			EventUtil.addHandler(window,"resize",function(){
+				console.log("window changed")
+			});
+			EventUtil.addHandler(window,"scroll",function(){
+				console.log(document.compatMode)
+				console.log( "document.body.scrollTop : "+document.body.scrollTop);
+				console.log( "document.documentElement.scrollTop:   "+document.documentElement.scrollTop);
+				// }
+				// if(document.compatMode=="CSS1Compat"){
+				// 	console.log(document.documentElement.scrollTop);
+				// }else{
+				// 	console.log(document.body.scrollTop);
+				// }
+			})
+		})
+
+	</script>
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+		/*overflow: hidden;*/
+	}
+	</style>
+</head>
+<body style="width:2000px;height:1000px">
+	<div id="div"></div>
+</body>
+</html>

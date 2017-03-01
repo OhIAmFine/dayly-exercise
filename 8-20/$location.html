@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCon">
+		<p>{{locationa}}</p>
+		<p>两秒钟后显示"Hello World"</p>
+		<p>{{hello}}{{xx}}</p>
+		<h1>时间：{{time}}</h1>
+	</div>
+	<script type="text/javascript">
+	var app=angular.module("myApp",[]);
+	app.controller("myCon",function($scope,$location,$timeout,$interval,fuck){
+
+		$scope.locationa=$location.absUrl();
+		$timeout(function(){
+			$scope.hello="Hello World";
+		},2000);
+		$interval(function(){
+			var localTime=new Date().toLocaleTimeString();
+			$scope.time=localTime;
+		},1000);
+		$scope.xx=fuck.fu(255)
+	})
+	app.service("fuck",function(){
+		alert(1)
+		console.log("ohuohuo");
+		this.fu=function(x){
+			return x.toString(8)
+		}
+	})
+	</script>
+</body>
+</html>

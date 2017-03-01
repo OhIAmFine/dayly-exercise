@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var tmp = new Date().toLocaleTimeString();
+	console.log(tmp);
+		function f() {
+		console.log(tmp);
+			if (false) {
+			var tmp = "hello world";
+		}
+		}
+
+		f(); // undefined
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+
+</head>
+<body>
+	<form name="myForm" ng-app="">
+	Email:<input type="email" name="myEmail" ng-model="text">
+		<span ng-show="myForm.myEmail.$error.email">不是一个合法的地址</span>
+		<p>输入错误信息的显示ng-show提示内容</p>
+	</form>
+</body>
+</html>

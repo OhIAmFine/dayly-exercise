@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var a=[];
+	var b=[];
+	for (var i = 0; i < 10; i++) {
+		a[i]=function  () {
+			// body...
+			console.log(i);
+		}
+	};
+	a[8]();
+	for (let i = 0; i < 10; i++) {
+		b[i]=function  () {
+			// body...
+			console.log(i);
+		}
+	};
+	b[5]();
+	//上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，所以最后输出的是6。
+	//let不像var那样会发生“变量提升”现象。所以，变量一定要在声明后使用，否则报错。
+		if (true) {
+		// TDZ开始
+		tmp = 'abc'; // ReferenceError
+		console.log(tmp); // ReferenceError
+
+		let tmp; // TDZ结束
+		console.log(tmp); // undefined
+
+		tmp = 123;
+		console.log(tmp); // 123
+		}
+		//“暂时性死区”也意味着typeof不再是一个百分之百安全的操作
+
+			function () {
+			let a = 10;
+			var a = 1;
+			}
+
+			// 报错
+			function () {
+			let a = 10;
+			let a = 1;
+			}
+
+			function func(arg) {
+				let arg; // 报错
+				}
+
+				function func(arg) {
+				{
+				let arg; // 不报错
+				}
+				}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

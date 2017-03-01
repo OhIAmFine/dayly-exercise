@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCon">
+		<p>{{name}}</p>
+	</div>
+	<script type="text/javascript">
+	var app=angular.module("myApp",[]);
+	app.controller("myCon",function  ($scope) {
+		// body...
+		$scope.name="sam";
+	})
+	</script>
+</body>
+</html>

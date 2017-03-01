@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	var book={
+		_year:2004,
+		edition:1
+	};
+	// Object.defineProperty(book,"year",{
+	// 	get:function(){
+	// 		return this._year;
+	// 	},
+	// 	set:function(newValue){
+	// 		if (newValue>2004) {
+	// 			this._year=newValue;
+	// 			this.edition+=newValue-2004;
+	// 		};
+	// 	}
+	// });
+	Object.__defineGetter__("year",function(){
+		return this._year;
+	});
+	Object.__defineSetter__("year",function(newValue){
+		if (newValue>2004) {
+			this._year=newValue;
+			this.edition+=newValue-2004;
+		};
+	})
+	book.year=2005;
+	alert(book._year);
+
+</script>
+<body>
+	
+</body>
+</html>

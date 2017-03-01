@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	document.onclick=function(){
+			var	event=window.event;
+		setTimeout(function(){
+			event.returnValue=false;
+			alert("1")
+		},1000)
+	}
+	</script>
+</body>
+</html>

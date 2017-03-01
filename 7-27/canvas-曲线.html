@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var canvas=document.getElementById("canvas");
+		canvas.width=1024;
+		canvas.height=768;
+		var context=canvas.getContext('2d');
+		for (var i = 0; i < 10; i++) {
+			context.beginPath();
+			context.lineWidth=5;
+			context.arc(50+i*100,50,40,0,2*Math.PI*(i)/10,true);
+			context.stroke();
+		};
+		for (var i = 0; i < 10; i++) {
+			context.beginPath();
+			context.lineWidth=5;
+			context.arc(50+i*100,200,40,0,2*Math.PI*(i)/10);
+			context.stroke();
+			context.fill();
+		};
+	}
+	</script>
+</head>
+<body>
+	<canvas id="canvas" style="border:1px solid black;margin:50px auto;display:block;"></canvas>
+</body>
+</html>

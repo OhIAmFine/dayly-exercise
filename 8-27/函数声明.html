@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		考虑到环境导致的行为差异太大，应该避免在块级作用域内声明函数。如果确实需要，也应该写成函数表达式，而不是函数声明语句。
+
+// 函数声明语句
+			{
+			  let a = 'secret';
+			  function f() {
+			    return a;
+			  }
+			}
+
+// 函数表达式
+			{
+			  let a = 'secret';
+			  let f = function () {
+			    return a;
+			  };
+			}
+
+			//const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+<p>{{ x1 }}</p>
+<p>{{ x2 }}</p>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.x1 = "JOHN";
+    $scope.x2 = angular.lowercase($scope.x1);
+});
+
+// API	描述
+// angular.lowercase()	转换字符串为小写
+// angular.uppercase()	转换字符串为大写
+// angular.isString()	判断给定的对象是否为字符串，如果是返回 true。
+// angular.isNumber()	判断给定的对象是否为数字，如果是返回 true。
+</script>
+
+</body>
+</html>

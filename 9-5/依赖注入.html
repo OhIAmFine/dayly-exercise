@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<h3>angular 依赖注入</h3>
+		输入数字<input type="number" ng-model="number">
+		相乘：<button ng-click="square()">X<sup>2</sup></button>
+		结果：{{result}}
+	</div>
+	<script type="text/javascript">
+	var mainApp=angular.module("myApp",[]);
+
+	//value组件
+	mainApp.value("defualtValue",10);
+	//factory组件
+	mainApp.factory("MathService",function(){
+		var factory={};
+		factory.multiply=function(a,b){
+			return a*b;
+		}
+		return factory;
+	});
+	mainApp.service("CalcService",function(MathService){
+		this.square=function(a){
+			return MathService.multiply(a,a);
+		}
+	})
+	//provider组件
+	// mainApp.config(function($provide){
+	// 	$provide.provider("MathService",function(){
+	// 		this.$get=function(){
+	// 			var factory={};
+	// 			factory.multiply=function(a,b){
+	// 				return a*b;
+	// 			}
+	// 			return factory;
+	// 		}
+	// 	})
+	// })
+	//constant组件
+	mainApp.constant("configParam","constant value");
+
+	
+		mainApp.controller("myCtrl",function($scope,defualtValue,CalcService){
+		$scope.number=defualtValue;
+		$scope.result=CalcService.square($scope.number);
+		$scope.square=function(){
+			$scope.result=CalcService.square($scope.number);
+		}
+	})
+
+	</script>
+</body>
+</html>

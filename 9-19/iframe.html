@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../EventUtil.js">
+	EventUtil.addHandler(window,"load",function(){
+		frames["iframe"].document.designMode="on";
+	})
+	</script>
+</head>
+<body>
+	<iframe src="blank.html" name="iframe" style="height:100px;width:100px; "></iframe>
+	<div contenteditable >sdsada </div>
+</body>
+</html>

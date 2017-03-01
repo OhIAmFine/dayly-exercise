@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src='../angular-1.5.8/angular-1.5.8/angular.min.js'>  </script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCon">
+		<select ng-model="optionMoudel" ng-options="x for x in names">
+		<!--另一种ng-repeat方法 -->
+			<!-- <option ng-repeat="x in names">{{x}}</option> -->
+		</select>  
+	</div>
+	<script type="text/javascript">
+	var app=angular.module("myApp",[]);
+	app.controller("myCon",function($scope){
+		$scope.names=["aaa","bbb","ccc"];
+	})
+	</script>
+</body>
+</html>

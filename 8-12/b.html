@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var timer=null;
+		var time = new Calculagraph();
+		time.set(10); // 设定起点是30秒
+			// 开始递减。起点是30秒，每500ms触发一次回调，时间依次递减。当时间为0的时候停止。
+		time.decrease(function(time){
+    console.log(time); // 当前运行的时间
+},30, 500,function(){
+    console.log('finishde');
+});
+		function Calculagraph(){
+			Calculagraph.prototype.set=function(_time){
+				this.time=_time;
+			}
+			Calculagraph.prototype.decrease=function(fn1,start_time,_interval,fn2){
+				// fn1&&fn1();
+				start_time=this.time*1000;
+				  timer=setInterval(function(){
+				  	var new_date= new Date();
+					start_time=start_time-_interval;
+					if (fn1) {
+					var start_time1=start_time/1000;
+					if(start_time1>=0){
+						console.log(new_date); fn1(start_time1);}
+					if(start_time<=0&&fn2){
+						fn2();
+						clearInterval(timer);
+					}
+
+					}
+				},_interval);
+
+			} 
+		}
+
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

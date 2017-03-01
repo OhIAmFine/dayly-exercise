@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var canvas=document.getElementById('canvas');
+		canvas.width=800;
+		canvas.height=800;
+		var context=canvas.getContext("2d");
+		canvas.fillStyle="black";
+		context.fillRect(0,0,canvas.width,canvas.height);
+
+		for (var i = 0; i < 200; i++) {
+			var x=Math.random()*canvas.width;
+			var y=Math.random()*canvas.height;
+			var r=Math.random()*10+10;
+			var a=Math.random()*360;
+			drawStar(context,r/2.0,r,x,y,a);
+		};
+	}
+	function drawStar(ctx,r,R,x,y,rot){
+		ctx.beginPath();
+		for (var i = 0; i <5; i++) {
+			ctx.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*r+x,
+				-Math.sin((18+i*72-rot)/180*Math.PI)*r+y);
+			ctx.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*R+x,
+				-Math.sin((54+i*72-rot)/180*Math.PI)*R+y);
+		};
+		ctx.closePath();
+		ctx.strokeStyle="#fb3";
+		ctx.fillStyle="#fb3";
+		ctx.fill();
+		ctx.stroke();
+	}
+	</script>
+</head>
+<body>
+	<canvas id="canvas" style="display:block;margin:50px auto;"></canvas>
+</body>
+</html>

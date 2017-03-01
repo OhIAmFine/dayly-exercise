@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../EventUtil.js"></script>
+</head>
+<body>
+	<button id="btn">按钮</button>
+	<div id="div">ggfgjkj</div>
+	<script type="text/javascript">
+	var oBtn=document.getElementById("btn");
+	var div=document.getElementById('div');
+	 // var event=document.createEvent("MouseEvents");
+	 // event.initMouseEvent("click", true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
+	 // oBtn.dispatchEvent(event);
+	 
+	 // oBtn.onmyEvents=function(event){
+	 // 	alert(event.detail);
+	 // }
+	 EventUtil.addHandler(div,"myEvents",function(event){
+	 	alert(event.detail);
+	 });
+	 EventUtil.addHandler(document,"myEvents",function(event){
+	 	alert(event.detail);
+	 });
+	 var event=document.createEvent("CustomEvent");
+	 event.initCustomEvent("myEvents", true,false,"hello world");
+	 div.dispatchEvent(event);
+	</script>
+</body>
+</html>

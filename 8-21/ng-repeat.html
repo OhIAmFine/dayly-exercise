@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- // <script type="text/javascript" src="../angular.js-1.5.8/src/Angular.js"></script> -->
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="" >
+		<p>使用ng-repeat</p>
+		<ul ng-init="names=[{name:'Jani',country:'Norway'},{name:'Hege',country:'Sweden'},{name:'Kai',country:'Denmark'}]">
+			<li ng-repeat="x in names">{{x.name | uppercase }}{{ " ohayo "+x.country|lowercase}}</li>
+		</ul>
+	</div>
+</body>
+</html>

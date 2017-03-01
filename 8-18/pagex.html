@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../EventUtil.js"></script>
+	<script type="text/javascript">
+	EventUtil.addHandler(window,"load",function(){
+			var oDiv=document.getElementsByTagName('div')[0];
+		EventUtil.addHandler(document,"click",function(event){
+			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+			var event=EventUtil.getEvent(event);
+			var str="event.screenX： "+event.screenX+" </br>"+"event.screenY： "+event.screenY+"</br>"+"event.pageX： "+event.pageX+"</br>"+"event.pageY： "+event.pageY+"</br>"+"event.clientX： "+event.clientX+"</br>"+"event.clientX： "+event.clientY+"</br>";
+			// alert(document.documentElement.clientHeight)
+			// oDiv.style.left=(document.body.clientWidth-oDiv.offsetWidth)/2+"px";
+			// oDiv.style.top=(document.documentElement.clientHeight+document.documentElement.scrollTop-oDiv.offsetHeight)/2+"px";
+			// console.log(document.documentElement.clientHeight);
+			// console.log(document.body.clientHeight);
+			console.log(document.documentElement.clientWidth);
+			console.log(document.body.clientWidth);
+			oDiv.style.left=(document.documentElement.clientWidth-oDiv.offsetWidth)/2+"px";
+			oDiv.style.top=(document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+"px";
+			// oDiv.innerHTML="event.screenX： "+event.screenX+"\n";
+			// oDiv.innerHTML="event.screenY： "+event.screenY+"\n";
+			// oDiv.innerHTML="event.pageX： "+event.pageX+"\n";
+			// oDiv.innerHTML="event.pageY： "+event.pageY+"\n";
+			// oDiv.innerHTML="event.clientX： "+event.clientX+"\n";
+			// oDiv.innerHTML="event.clientX： "+event.clientY+"\n";
+			oDiv.innerHTML=str;
+			// console.log("event.screenX")
+		})
+		EventUtil.addHandler(window,"scroll",function(){
+			var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+			// alert("1")
+			// console.log(oDiv.style.top);
+			// console.log(document.documentElement.clientHeight-oDiv.offsetHeight);
+			// console.log(document.documentElement.scrollTop);
+			// console.log(document.body.scrollTop);
+			oDiv.style.left=(document.documentElement.clientWidth-oDiv.offsetWidth)/2+"px";
+			oDiv.style.top=(document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+"px";
+			// alert("2")
+		});
+
+		EventUtil.addHandler(window,"mousewheel",function(){
+			var event=EventUtil.getEvent(event);
+
+			console.log(event.wheelDelta);
+		})
+	})
+	</script>
+	<style type="text/css">
+	body{
+		height: 2000px;
+		/*margin: 0;*/
+		/*padding: 0;*/
+	}
+	div{
+		width: 500px;
+		height: 500px;
+		position: absolute;
+		left: 0;
+		top: 0;
+	background-color: red;
+	}
+	</style>
+</head>
+<body >
+	<div></div>
+</body>
+</html>

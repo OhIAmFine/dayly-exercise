@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+var person={
+name:'sam',
+age:20,
+address:'cqupt',
+}
+Object.defineProperty(person,'name',{
+	writable:false,
+	configurable:false,
+	enumerable:false,
+	value:'chenjunsong'
+})
+for(var i in person)
+{
+	alert(person[i]);
+}
+person.name='sss';
+alert(person.name);
+</script>
+
+</head>
+<body>
+	
+</body>
+</html>

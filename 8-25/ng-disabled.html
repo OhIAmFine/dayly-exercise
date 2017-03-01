@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="" >
+	<input type="checkbox" ng-model="switch">
+	<input type="button" ng-disabled="switch" value="anniu">
+	<button  ng-disabled="switch">按钮</button>
+	<p ng-show="switch">ng-show 指令隐藏或显示一个 HTML 元素。</p>
+	<p ng-hide="switch">我是不可见的。</p>
+	<p>{{switch}}</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		animation:myMove 3s infinite alternate;
+		background: red;
+		-webkit-animation:myMove 3s infinite alternate;
+
+	}
+	@-webkit-animation{
+		from{background: red;
+			left: 0;
+			top:0;
+		}
+		to{background: yellow;
+			left:300px;
+			top: 300px;
+		}
+	}
+	@keyframes myMove{
+		from{background: red;
+			left: 0;
+			top:30px;
+
+		}
+		to{background: yellow;
+			left:300px;
+			top:300px;
+		}
+	}
+	</style>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

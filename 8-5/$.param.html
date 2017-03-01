@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-1.12.3.js"></script>
+	<script type="text/javascript">
+	window.onload=function  () {
+		var str={
+			1:1,
+			2:2,
+			arr:['a','b','c','d'],
+		}
+		alert($.param(str));
+		alert(decodeURIComponent($.param(str)))
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

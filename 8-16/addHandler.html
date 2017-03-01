@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var EventUtil={
+		addHandler:function  (elment,type,handler) {
+			// body...
+			if (elment.addEventListener) {
+				elment.addEventListener(type,handler,false);
+			}
+			else if(elment.attachEvent){
+				elment.attachEvent("on"+type,handler);
+			}
+			else{
+				elment["on"+type]=handler;
+			}
+		},
+		getEvent:function(event){
+			return event?event:window.event;
+		},
+		getTarget:function(event){
+			return event.target||event.srcElement;
+		},
+		preventDefault:function(event){
+			 event.preventDefault?event.preventDefault():event.returnValue=false;
+			// if (event.preventDefault) {
+			// 	event.preventDefault();
+			// }else{
+			// 	event.returnValue=false;
+			// }
+		},
+
+		removeHandler:function(elment,type,handler){
+			if (elment.addEventListener) {
+				elment.removeEventListener(type,handler,false);
+			}
+			else if(elment.attachEvent){
+				elment.detachchEvent("on"+type,handler);
+			}
+			else{
+				elment["on"+type]=null;
+			}
+		},
+		stopPropagation:function(event){
+			event.stopPropagation?event.stopPropagation():event.cancleBubble=true;
+			// if (event.stopPropagation) {
+			// 	event.stopPropagation();
+			// }else{
+			// 	event.cancleBubble=true;
+			// }
+		}
+	}
+
+		function handler(){
+			alert("This is a EventUtil");
+		}
+	
+	window.onload=function(){
+		var oBtn=document.getElementById('div');
+		var oImage=document.getElementById('iamge');
+		var oLink=document.getElementById('link');
+		// EventUtil.addHandler(oBtn,"click",handler);
+		EventUtil.addHandler(oImage,"click",handler);
+		oLink.onclick=function(event){
+			var event=EventUtil.getEvent(event);
+			EventUtil.preventDefault(event);
+			alert("hah")
+		}
+		// EventUtil.removeHandler(oBtn,"click",handler); 
+		// EventUtil.removeHandler(oImage,"click",handler);
+		// oBtn.onclick=function(){
+		// 	alert("1");
+		// }
+		// oBtn.onclick=function(){
+		// 	alert("2");
+		// }
+		// oBtn.addEventListener("click",function(){alert("1")},false);
+		// oBtn.addEventListener("click",function(){alert("2")},false);
+		oBtn.onclick=handler1;
+		oBtn.onmouseup=handler1;
+	}
+	function handler1(event){
+		switch(event.type){
+			case "click":{alert("click")};
+			break;
+			case "mouseup":
+			{alert("onmouseup")};
+			break;
+			case "mosuover":
+			{alert("1")};
+		}
+	}
+	</script>
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+	}
+	</style>
+</head>
+<body>
+	<div id="div"></div>
+	<a href="https://www.baidu.com" id="link">点击跳转</a>
+
+	<input type="button" value="Click bubbles" onclick="alert(event.bubbles)">
+	<input type="button" value="Click cancleable" onclick="alert(event.cancleable)">
+	<input type="button" value="Click currentTarget" onclick="alert(event.currentTarget)">
+	<input type="button" value="Click defaultPrevented" onclick="alert(event.defaultPrevented)">
+	<input type="button" value="Click detail" onclick="alert(event.detail)">
+	<input type="button" value="Click eventPhase" onclick="alert(event.eventPhase)">
+
+
+	<input type="button" value="Click trusted" onclick="alert(event.trusted)">
+	<input type="button" value="Click view" onclick="alert(event.view)">
+	<input type="button" value="Click target" onclick="alert(event.target)">
+	<input type="image" src="../images/1.jpg" id="iamge">
+</body> 
+</html>

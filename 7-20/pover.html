@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+<body>
+	
+<div class="container" style="padding: 100px 50px 10px;" >
+   <button type="button" class="btn btn-default" title="Popover title"  
+      data-container="body" data-toggle="popover" data-placement="left" 
+      data-content="左侧的 Popover 中的一些内容">
+      左侧的 Popover
+   </button>
+   <button type="button" class="btn btn-primary" title="Popover title"  
+      data-container="body" data-toggle="popover" data-placement="top" 
+      data-content="顶部的 Popover 中的一些内容">
+      顶部的 Popover
+   </button>
+   <button type="button" class="btn btn-success" title="Popover title"  
+      data-container="body" data-toggle="popover" data-placement="bottom" 
+      data-content="底部的 Popover 中的一些内容">
+      底部的 Popover
+   </button>
+   <button type="button" class="btn btn-warning" title="Popover title"  
+      data-container="body" data-toggle="popover" data-placement="right" 
+      data-content="右侧的 Popover 中的一些内容">
+      右侧的 Popover
+   </button>
+   </div>
+
+</div>
+
+</body>
+<script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+
+   <script>$(function () 
+      { $("[data-toggle='popover']").popover();
+      });
+   </script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var canvas=document.getElementById('canvas');
+		var context=canvas.getContext('2d');
+		canvas.width=800;
+		canvas.height=800;
+		context.beginPath();
+		context.style="black";
+		context.fillRect(0,0,canvas.width,canvas.height);
+		context.beginPath();
+		context.arc(400,400,180,0,2*Math.PI);
+		context.fillStyle="white";
+		context.fill();
+		context.clip();
+		context.font=" bold 150px Arial";
+		context.fillStyle="purple";
+		context.textAlign="center";
+		context.baseLine="middle";
+		context.fillText("canvas",canvas.width/2,canvas.height/2);
+	}
+	</script>
+</head>
+<body>
+	<canvas id="canvas" style="margin:10px auto;display:block;border:1px solid black"></canvas>
+</body>
+</html>

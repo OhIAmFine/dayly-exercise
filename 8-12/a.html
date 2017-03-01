@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	window.onload=function(){
+		spacify('hello world');
+		function spacify(str){
+			// // alert(str);
+			// var str1=str.split("");
+
+			// for (var i in str1){
+			// 	// str1[i]=str1[i]+" ";
+			// 	if(str1[i]==" "){
+			// 		// alert(str1[i]);
+			// 		str1.splice(i,1);
+			// 	}
+			// 	console.log(str1[i])
+			// }
+			// alert(str1.join(" "));
+			// console.log(str1.join(" "))
+			// };"str1[i]"       "+str[1]+"
+			var re=/\s/g;
+			 var str1=str.replace(re,'');
+			for(var i in str1){
+				str1[i].replace("\\.\\g","+"str1[i]+"+");
+				console.log(str1[i].replace("\\.\\g","+"+str1[i]+""));
+			}
+			console.log(str1)
+			// alert(str.replace(re,''));
+
+		}}
+
+	
+
+</script>
+<body>
+	
+</body>
+</html>

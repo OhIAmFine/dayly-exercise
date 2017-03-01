@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp"  ng-controller="myCtrl">
+		<h1>Angular-Js备忘录</h1>
+		<p><textarea ng-model="message" rows="10" cols="40" ></textarea></p>
+		<p><input type="button" value="保存" ng-click="save()"><input type="button" value="清空" ng-click="clear()"></p>
+		<p>还剩<span ng-bind="left()"></span>字</p>
+	</div>
+	<script type="text/javascript">
+	var app=angular.module("myApp",[]);
+	app.controller("myCtrl",function  ($scope) {
+		// body...
+
+		$scope.message="";
+
+		$scope.clear=function(){
+			$scope.message=""
+		};
+		$scope.save=function(){
+			alert("保存成功");
+		// var a=$scope.message.length;
+
+		// 	alert(a)
+
+		};
+		$scope.left=function(){
+			return 100-$scope.message.length;
+		}
+
+		// $scope.message.length=100-(message.length);
+	})
+	</script>
+</body>
+</html>

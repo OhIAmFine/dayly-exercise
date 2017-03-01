@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../EventUtil.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oText=document.getElementById('text');
+		// EventUtil.addHandler(oText,"keypress",function(event){
+		// 	 event=EventUtil.getEvent(event);
+		// 		alert(EventUtil.getCharCode(event));
+		// 	// alert(EventUtil.getCharCode(event));
+		
+		// })
+			// EventUtil.addHandler(oText,"keypress",function(event){
+			// 	event=EventUtil.getEvent(event);
+			// 	// alert(EventUtil.getCharCode(event));
+			// 	// var charCode=EventUtil.getCharCode(event);
+			// 	alert(String.fromCharCode(EventUtil.getCharCode(event)));
+			// })
+	oText.onkeypress=function(event){
+		alert(event.keyCode);
+		alert(String.fromCharCode(event.charCode))
+	}
+	}
+	</script>
+</head>
+<body>
+	<input type="text" name="text" id="text">
+</body>
+</html>

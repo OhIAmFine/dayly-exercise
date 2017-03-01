@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../angular-1.5.8/angular-1.5.8/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<form action="http://www.baidu.com" novalidate >
+		firstname:<br>
+		<input type="text" ng-model="user.firstname" name="user.firstname"><br>
+		lastname:<br>
+		<input type="text" ng-model="user.lastname" name="user.lastname"><br><br>
+		<input type="button" ng-click="reset()" value="RESET">
+		<br><br>
+		<p>user={{user}}</p>
+		<h1>master={{master}}</h1>
+
+		</form>
+
+	</div>
+	<script type="text/javascript">
+	var app=angular.module("myApp",[]);
+	app.controller("myCtrl",function  ($scope) {
+		// body...
+		$scope.master={firstname:"sam",lastname:"chen"};
+		$scope.reset=function(){
+			$scope.user=angular.copy($scope.master);
+			alert("fuck you")
+		}
+		$scope.reset();
+	})
+	</script>
+</body>
+</html>

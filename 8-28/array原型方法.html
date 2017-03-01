@@ -1,0 +1,600 @@
+ JavaScript Array 原型方法 大盘点
+标签： javascript数组API详解Array
+2016-06-04 13:12 307人阅读 评论(0) 收藏 举报
+本文章已收录于：   JavaScript知识库
+ 分类： 解读（4）  
+版权声明：CopyRight 2016, Heley Chen, Follow CC BY-NC-SA License
+目录(?)[+]
+数组是一个超常用的数据结构，JavaScript的数组方法都有什么怎样的特性呢？
+
+是时候一探究竟了。
+
+JavaScript中数组是一个对象，默认的赋值是传了一个引用。针对结果是引用还是拷贝，对原数组的变更与否，分为两类方法：必写方法、只读方法。
+
+必写方法
+
+列举了一些会造成数组本身的内容发生改变的方法。
+
+splice
+
+Array.prototype.splice(start: number, deleteCount: number, ...items: any[]): any[]
+1
+arr.splice(start, deleteCount, …items) 是将arr[start, start + deleteCount) 的部分裁去，然后在这里插入items。 
+这个 splice 的表达能力非常强大，在数组的特定位置裁一刀，并用一个数组补上去。并返回因为被裁掉而生成的数组。虽然它看起来是块级的操作好像可以实现常数时间复杂度，但是其实它是一个线性的操作，从参数列表中可以看出它是线性的。
+
+思考：splice 对于插入参数的长度而言的插入效率如何？[如果Array以链表实现，插入的代价最快是常数时间的]
+
+参考：是线性时间复杂度的，而不是常数时间的。注意它的参数列表，传参方式决定了它是逐一处理参数的。例如调用splice(0, 0, [1, 2]) 的结果是插入了一个[1, 2] 而不是1, 2 这两个数。
+copyWithin
+
+Array.prototype.copyWithin(target: number, start: number, end: number): this
+1
+arr.copyWithin(target, start, end) 是将 arr[start, end) 这部分先做一个拷贝，然后再贴到从arr[target] 开始的位置。
+
+思考：如何用 splice 实现 copyWithin？ 
+提示：使用字符串构造函数。
+fill
+
+Array.prototype.fill(value: number, start: number, end: number): this
+1
+arr.fill(value, start, end) 是将 arr[start, end) 的部分都填充成同一个 value。 
+这提供了一种简单的数组初始化方式。
+
+var arr = [1, 2, 3];
+arr.fill(0, 1, 2); // [1, 0, 3]
+arr.fill(0); // [0, 0, 0]
+1
+2
+3
+在填充对象时要注意：
+
+var arr = [{}, {}];
+arr[0] == arr[1]; // false
+arr.fill({}); // [{}, {}]
+arr[0] == arr[1]; // true
+1
+2
+3
+4
+push, unshift, pop, shift
+
+Array.prototype.push(...items: any[]): number
+Array.prototype.unshift(...items: any[]): number
+Array.prototype.pop(): any
+Array.prototype.shift(): any
+1
+2
+3
+4
+将Array看作是一个双向队列（deque）可能是比较恰当的。
+
+从头部插入：unshift
+从尾部插入：push
+从头部删除：shift
+从尾部删除：pop
+提示：组合使用 push 与 pop 可以使得 Array 变成一个栈；组合使用 push 与 shift 可以使得 Array 变成一个队列。
+
+思考：组合使用 unshift 与 shift 是否实现了栈？组合使用 unshift 与 pop 是否实现了队列？
+
+参考：是，但这种方式有一个小坑点。因为从结果上说，unshift(1, 2)与先后调用 unshift(1), unshift(2)不同。可以推测，unshift与push是splice的特殊情况。unshift(…items) 与 splice(0, 0, …items) 是一致的，push(…items) 与 splice(this.length, 0, …items) 是一致的。BTW，shift() 与 splice(0, 1) 一致； pop()与splice(this.length - 1, 1) 一致；
+sort
+
+Array.prototype.sort(sortFn: (a: any, b: any) => number): this
+1
+将数组排序，默认使用升序，会改变数组自身。
+
+var arr = [2, 1];
+arr.sort(); // [1, 2]
+arr.sort((a, b) => b - a); // [2, 1]
+1
+2
+3
+reverse
+
+Array.prototype.reverse(): this
+1
+将数组反转，会改变数组自身。
+
+var arr = [1, 2, 3];
+arr.reverse(); // [3, 2, 1];
+arr; // [3, 2, 1];
+1
+2
+3
+乍一想，反转可以算是一种按照索引号反序的特殊的排序，但 sort 的比较函数不能按照索引号写，这就比较尴尬了。
+
+var arr = [1, 2, 3];
+arr = arr.map((v, i) => { return {value: v, index: i}; }).sort((a, b) => b.index - a.index).map(v => v.value); // [3, 2, 1]
+1
+2
+当然，这种方式看起来简直蠢爆了，从时间、空间效率上看都不能采用，只是体现了一种思路。
+
+只读方法
+
+forEach
+
+提供了一种遍历数组的方法。
+
+Array.prototype.forEach(callbackFn: (value: any, index: number, array: this) => undefined, thisArg: any): undefined
+1
+forEach 与 for 循环
+
+var arr = [1, 3];
+arr.forEach(v => arr.push(v)); // undefined
+arr; // [1, 3, 1, 3]
+
+var arr = [1, 3];
+for(var i = 0; i < arr.length; i++) arr.push(arr[i]); // Death Loop
+
+var arr = [1, 3];
+for(var i in arr) arr.push(arr[i]); // 4
+arr; // [1, 3, 1, 3]
+
+var arr = [1, 3];
+for(var i of arr) arr.push(i); // Death Loop
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+这里提供了一种简单的Hack方式（forEach 的 for…in 实现）：
+
+Array.prototype.forEach = function(callbackFn, thisArg){
+    for(var i in this) callbackFn.call(thisArg, this[i], ~~i, this);  
+}
+1
+2
+3
+由于 for…in 循环还能遍历对象的属性，还可以写一个Object版本的forEach：
+
+Object.prototype.forEach = function(callbackFn, thisArg){
+    for(var i in this) callbackFn.call(thisArg, this[i], i, this);  
+}
+1
+2
+3
+映射 map
+
+映射：准确地说是满射（一一映射）。
+
+Array.prototype.map(callbackFn: (value: any, index: number, array: this) => T, thisArg: any): T[]
+1
+注意它的特性：返回与原数组长度一致的新数组。
+
+样例：
+
+var arr = [1, 2, 3];
+arr.map(v => v * v); // [1, 4, 9]
+arr; // [1, 2, 3]
+1
+2
+3
+for…in 写法：
+
+Array.prototype.map = function(callbackFn, thisArg){
+    var ret = [];
+    for(var i in this) ret.push(callbackFn.call(thisArg, this[i], ~~i, this));
+    return ret;
+}
+1
+2
+3
+4
+5
+聚合 reduce, reduceRight, every, some, join, indexOf, lastIndexOf, find, findIndex
+
+聚合：将数组聚合成一个值。
+
+Array.prototype.reduce(callbackFn: (previousValue: any, currentValue: any, currentIndex: number, array: this) => any, initialValue: any): any
+
+Array.prototype.reduceRight(callbackFn: (previousValue: any, currentValue: any, currentIndex: number, array: this) => any, initialValue: any): any
+
+Array.prototype.every(callbackFn: (value: any, index: number, array: this), thisArg: any): boolean
+
+Array.prototype.some(callbackFn: (value: any, index: number, array: this), thisArg: any): boolean
+
+Array.prototype.join(separator: string): string
+
+Array.prototype.find(callbackFn: (value: T, index: number, array: this) => boolean, thisArg: any): T
+Array.prototype.findIndex(callbackFn: (value: any, index: number, array: this) => boolean, thisArg: any): number
+
+Array.prototype.indexOf(item: any, start: number): number
+Array.prototype.lastIndexOf(item: any, start: number): number
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+从一个数组到一个元素，此所谓聚合之意。
+
+聚合 reduce & reduceRight
+
+reduce 是遍历的同时将某个值试图不断更新的方法。 
+reduceRight 功能一样，但是从右侧开始（索引号大的一侧）。 
+可以非常简单地做到从一个数组中得出一个值 的操作，如求和，求最值等。
+
+用例：
+
+[1, 3, 2].reduce((pre, cur) => pre + cur, 1); // 6
+[1, 3, 2].reduce((pre, cur) => Math.max(pre, cur), -Infinity); // 3
+[1, 3, 2].reduce((pre, cur, i) => pre + '+' + cur + '*x^' + i , ''); // '+1*x^0+3*x^1+2*x^2'
+[1, 3, 2].reduceRight((pre, cur, i) => pre + '+' + cur + '*x^' + i , ''); // '+2*x^2+3*x^1+1*x^0'
+1
+2
+3
+4
+for…in 写法：
+
+Array.prototype.reduce = function(callbackFn, initialValue){
+    for(var i in this) callbackFn(initialValue, this[i], ~~i, this);
+    return initialValue;
+}
+1
+2
+3
+4
+谓词 every & some
+
+every与some分别是数组中全称、存在量词的谓词。 
+全称谓词 every: 是否数组中的元素全部都满足某条件。 
+存在谓词 some: 是否数组中的元素有一个满足某条件。
+
+[1, 2, 3].every(v => v > 0); // true
+[1, 2, 3].every(v => v == 1); // false
+[1, 2, 3].some(v => v == 1); // true
+[1, 2, 3].some(v => v == 0); // false
+1
+2
+3
+4
+注意：every与some具有逻辑运算的短路性。 
+在遍历的途中：
+
+every只要收到一个false，就会停止遍历；
+some只要收到一个true，就会停止遍历；
+var x = [];
+[1, 2, 3].every(v => {x.push(v); return v < 2;}) // false
+x; // [1, 2]
+
+var x = [];
+[1, 2, 3].some(v => {x.push(v); return v == 2;}) // true
+x; // [1, 2]
+1
+2
+3
+4
+5
+6
+7
+reduce 写法：
+
+Array.prototype.every = function(callbackFn, thisArg){
+    return this.reduce(function(previousValue, currentValue, currentIndex, array){
+        return previousValue && callbackFn.call(thisArg, currentValue, currentIndex, array);
+    }, true);
+}
+Array.prototype.some = function(callbackFn, thisArg){
+    return this.reduce(function(previousValue, currentValue, currentIndex, array){
+        return previousValue || callbackFn.call(thisArg, currentValue, currentIndex, array);
+    }, false);
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+结果对了，然而很抱歉，尽管每次逻辑运算有短路判定了，但是reduce遍历的开销去不掉，性能不够。 
+对于10^7 长度的数组就有明显的延迟。
+
+for…in 写法：
+
+Array.prototype.every = function(callbackFn, thisArg){
+    var ret = true;
+    for(var i in this) {
+        if(ret == false) break;
+        ret &= callbackFn.call(thisArg, this[i], ~~i, this);
+    }
+    return ret;
+}
+Array.prototype.some = function(callbackFn, thisArg){
+    var ret = false;
+    for(var i in this) {
+        if(ret == false) break;
+        ret |= callbackFn.call(thisArg, this[i], ~~i, this);
+    }
+    return ret;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+串行化 join
+
+join可以将一个数组以特定的分隔符转化为字符串。
+
+join默认使用半角逗号分隔。
+样例：
+
+[1, 2, 3].join(); // '1,2,3'
+[1, 2, 3].join(','); // '1,2,3'
+[1, 2, 3].join(' '); // '1 2 3'
+[1, 2, 3].join('\n'); // '1\n2\n3' # 打印出来是换行的
+[1, 2, 3].join('\b'); // '1\b2\b3' # 打印出来只有3，\b为退格
+[1, 2, 3].join('heiheihei'); // '1heiheihei2heiheihei3'
+1
+2
+3
+4
+5
+6
+reduce 写法：
+
+Array.prototype.join = function(separator){
+    if(separator === undefined) separator = ',';
+    return this.reduce((pre, cur) => pre + (pre? separator: '') + cur , '');
+}
+1
+2
+3
+4
+Array.prototype.toString() 可以等效于 Array.prototype.join()。当然，这两个函数对象本身是不同的。
+搜索 find, findIndex, indexOf, lastIndexOf
+
+返回从头开始第一个符合条件的元素 find
+返回从头开始第一个符合条件的元素的索引号 findIndex
+返回从头开始第一个特定元素的索引号 indexOf
+返回从尾开始第一个特定元素的索引号 lastIndexOf
+样例：
+
+[1, 3, 2, 1].find(v => v > 1); // 3
+[1, 3, 2, 1].find(v => v > 3); // undefined
+
+[1, 3, 2, 1].findIndex(v => v > 1); // 1
+[1, 3, 2, 1].findIndex(v => v > 3); // -1
+
+[1, 3, 2, 1].indexOf(1); // 0
+[1, 3, 2, 1].indexOf(4); // -1
+
+[1, 3, 2, 1].lastIndexOf(1); // 3
+[1, 3, 2, 1].lastindexOf(4); // -1
+
+[1, 3, 2, 1].indexOf(1, 1); // 3
+[1, 3, 2, 1].lastIndexOf(1, 2); // 0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+reduce 写法：
+
+Array.prototype.find = function(callbackFn, thisArg){
+    return this.reduce((pre, cur, i) => {
+        if(pre === undefined && callbackFn.call(thisArg, cur, i, this)) 
+            return cur; 
+    });
+}
+Array.prototype.findIndex = function(callbackFn, thisArg){
+    return this.reduce((pre, cur, i) => {
+        if(pre == -1 && callbackFn.call(thisArg, cur, i, this)) 
+            return i;
+    }, -1);
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+这个reduce写法并不具备短路优化，与every, some的reduce写法一样存在性能问题。
+
+for…in 写法：
+
+Array.prototype.find = function(callbackFn, thisArg){
+    for(var i in this) 
+        if(callbackFn.call(thisArg, this[i], ~~i, this))
+            return this[i];
+}
+Array.prototype.findIndex = function(callbackFn, thisArg){
+    for(var i in this) 
+        if(callbackFn.call(thisArg, this[i], ~~i, this))
+            return i;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+然后，indexOf 可看作是 findIndex 的一个特例。
+
+Array.prototype.indexOf = function(item, start){
+    return this.findIndex((v, i) => i >= start && v == item);
+}
+1
+2
+3
+子数组 与 filter, slice
+
+筛选：生成数组的保序子数组。
+
+Array.prototype.filter(callbackFn: (value: any, index: number, array: this) => boolean, thisArg: any): any[]
+Array.prototype.slice(start: number, end: number): any[]
+1
+2
+过滤 filter
+
+样例：
+
+[1, 2, 3].filter(v => v % 2 == 0); // [2]
+[1, 2, 3].filter(v => v & 1); // [1, 3]
+[1, 2, 3].filter((v, i) => i >= 1); // [2, 3]
+1
+2
+3
+for…in 写法：
+
+Array.prototype.filter = function(callbackFn, thisArg){
+    var ret = [];
+    for(var i in this) 
+        if(callbackFn.call(thisArg, this[i], ~~i, this))
+            ret.push(this[i]);
+    return ret;
+}
+1
+2
+3
+4
+5
+6
+7
+如果强行把 子数组也看成一个数的话，也可以写成reduce：
+
+Array.prototype.filter = function(callbackFn, thisArg){
+    return this.reduce((pre, cur, i) => {
+        if(callbackFn.call(thisArg, cur, i, this))
+            pre.push(cur);
+        return pre;
+    }, []);
+}
+1
+2
+3
+4
+5
+6
+7
+切片 slice
+
+生成数组在区间[start, end) 中的切片。
+
+样例：
+
+[1, 2, 3].slice(); // [1, 2, 3]
+[1, 2, 3].slice(0); // [1, 2, 3]
+[1, 2, 3].slice(1); // [2, 3]
+[1, 2, 3].slice(1, 2); // [2]
+[1, 2, 3].slice(2, 2); // []
+[1, 2, 3].slice(2, 1); // []
+1
+2
+3
+4
+5
+6
+filter 写法：
+
+Array.prototype.slice = function(start, end){
+    return this.filter((v, i) => i >= start && i < end);
+}
+1
+2
+3
+超数组 与 concat
+
+生成原数组的超数组，保持原数组在超数组中的顺序不变。
+
+Array.prototype.concat(...items: any[]): any[]
+1
+样例：
+
+[1, 2, 3].concat(); // [1, 2, 3]
+[1, 2, 3].concat(1, 5); // [1, 2, 3, 1, 5]
+[1, 2, 3].concat([1, 5]); // [1, 2, 3, 1, 5]
+[1, 2, 3].concat(1, [3], [[5, 6]], 6); // [1, 2, 3, 1, 3, [5, 6], 6]
+[].concat({a: 1}); // [{a: 1}]
+1
+2
+3
+4
+5
+可见concat会尝试一次拆数组。
+
+for…in 写法：
+
+Array.prototype.concat = function(...items) {
+    var ret = [];
+    for(var i in this) ret.push(this[i]);
+    for(var i in items) {
+        if(Array.isArray(items[i]))
+             for(var j in items[i]) ret.push(items[i][j]);
+        else ret.push(items[i]);
+    }
+    return ret;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+同 filter 的思路，也有reduce的写法，感觉不是很优雅，就留作日后思考吧：）
+
+结语
+
+写了这么多，是时候打出一波结语了。
+
+函数式编程使人受益匪浅，集中在“思考问题的本质”这个角度。
+
+比起命令式的做法，更是一种声明式的说法。
+
+Functional programming considers what the problem is rather than how the solution works. 
+比起思考解决方案如何运作，函数式编程更注重思考这个问题的本质是什么
